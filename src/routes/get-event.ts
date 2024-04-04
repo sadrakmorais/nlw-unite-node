@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import z from "zod";
+import { z } from "zod";
 import { prisma } from "../lib/prisma";
 
 export async function getEvent(app: FastifyInstance) {
@@ -49,14 +49,12 @@ export async function getEvent(app: FastifyInstance) {
       }
 
       return res.send({
-        event: {
-          id: event.id,
-          title: event.title,
-          slug: event.slug,
-          details: event.details,
-          maximumAttendees: event.maximumAttendees,
-          attendeesAmount: event._count.attendees,
-        },
+        id: event.id,
+        title: event.title,
+        slug: event.slug,
+        details: event.details,
+        maximumAttendees: event.maximumAttendees,
+        attendeesAmount: event._count.attendees,
       });
     }
   );
