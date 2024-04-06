@@ -8,17 +8,21 @@ export async function getEvent(app: FastifyInstance) {
     "/events/:eventId",
     {
       schema: {
+        summary: "Get an event",
+        tags: ["events"],
         params: z.object({
           eventId: z.string().uuid(),
         }),
         response: {
           200: z.object({
-            id: z.string().uuid(),
-            title: z.string(),
-            slug: z.string(),
-            details: z.string().nullable(),
-            maximumAttendees: z.number().int().nullable(),
-            attendeesAmount: z.number().int(),
+            event: z.object({
+              id: z.string().uuid(),
+              title: z.string(),
+              slug: z.string(),
+              details: z.string().nullable(),
+              maximumAttendees: z.number().int().nullable(),
+              attendeesAmount: z.number().int(),
+            }),
           }),
         },
       },
@@ -49,12 +53,14 @@ export async function getEvent(app: FastifyInstance) {
       }
 
       return res.send({
-        id: event.id,
-        title: event.title,
-        slug: event.slug,
-        details: event.details,
-        maximumAttendees: event.maximumAttendees,
-        attendeesAmount: event._count.attendees,
+        event: {
+          id: event.id,
+          title: event.title,
+          slug: event.slug,
+          details: event.details,
+          maximumAttendees: event.maximumAttendees,
+          attendeesAmount: event._count.attendees,
+        },
       });
     }
   );
