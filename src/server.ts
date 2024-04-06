@@ -8,6 +8,7 @@ import {
 import { getEvent } from "./routes/get-event";
 import { getAttendeeBadge } from "./routes/get-attendee-badge";
 import { checkIn } from "./routes/check-in";
+import { getEventAttendees } from "./routes/get-event-attendees";
 
 const app = fastify();
 
@@ -17,6 +18,7 @@ app.setSerializerCompiler(serializerCompiler);
 app.register(createEvent);
 app.register(registerForEvent);
 app.register(getEvent);
+app.register(getEventAttendees);
 app.register(getAttendeeBadge);
 app.register(checkIn);
 
